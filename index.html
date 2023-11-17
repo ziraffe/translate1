@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    footer {
+      color: gray;
+      padding: 8px;
+      font-size: 9px;
+      text-align: center;
+    }
+
+    .video-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      filter: brightness(30%);
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 1;
+    }
+
+    .center p {
+      margin-bottom: 10px;
+    }
+
+    .center img {
+      width: 70%;
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .button-container button {
+      font-family: "Nanum Gothic";
+      font-weight: bold;
+      background-color: gray;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      margin: 0 10px;
+      transition: background-color 0.4s ease;
+    }
+
+    .button-container button:hover,
+    .button-container button:focus {
+      background-color: white;
+      color: black;
+      cursor: pointer;
+    }
+
+    /* 미디어 쿼리를 사용하여 모바일에서 레이아웃 변경 */
+    @media only screen and (max-width: 1170px) {
+      .center {
+        position: relative;
+        top: initial;
+        left: initial;
+        transform: initial;
+      }
+
+      .video-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        filter: brightness(30%);
+        object-fit: cover;
+      }
+
+
+      .button-container {
+        flex-direction: column;
+        margin-top: 10px;
+      }
+
+      .button-container button {
+        margin: 10px auto;
+        width: 60%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="video-container">
+    <img src="video/1.jpg" alt="이미지 설명">
+    </video>
+    <div class="center">
+      <h1>Please select a language</h1>
+      <div class="button-container">
+        <button id="button1">English</button>
+        <button id="button2">中國語</button>
+        <button id="button3">日本語</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>Copyright &copy; 2023 design by ziraffe
+    </p>
+  </footer>
+
+
+  <script>
+    var socket = new WebSocket('ws://175.211.48.47:4480');
+
+    socket.onopen = function (event) {
+      var clientIp = event.currentTarget.url.split("/")[2];
+      var deviceInfo = {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform
+      };
+      socket.send(JSON.stringify({ deviceInfo: deviceInfo }));
+    }
+
+    // 버튼 클릭 이벤트 및 다른 코드는 그대로 유지합니다.
+    document.getElementById("button1").addEventListener("click", function () {
+      window.location.href = "eng.html";
+    });
+    document.getElementById("button2").addEventListener("click", function () {
+      window.location.href = "cha.html";
+    });
+    document.getElementById("button3").addEventListener("click", function () {
+      window.location.href = "jap.html";
+    });
+
+
+
+  </script>
+
+</body>
+
+</html>
